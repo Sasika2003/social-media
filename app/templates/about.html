@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* CSS Styles */
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Center vertically on the page */
+        }
+        .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -20px; /* Adjust the margin as needed */
+}
+
+.user-info p {
+    display: flex;
+    align-items: center;
+}
+
+        .user-info form {
+            display: inline-block;
+            text-align: left;
+        }
+        .user-info form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .user-info form input[type="text"],
+        .user-info form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .user-info form button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .user-info form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ welcome_message }}</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>&copy; 2024 Connectify App</p>
+    </footer>
+    <div class="container">
+        <!-- User Information Section -->
+        <div class="user-info">
+            <h2>User Information</h2>
+            <p><strong>Username:</strong> {{ user_info['username'] }}</p>
+            <p><strong>Email:</strong> {{ user_info['email'] }}</p>
+            <form action="/update_profile" method="POST">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" value="{{ user_info['phone_number'] }}">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio">{{ user_info['bio'] }}</textarea>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

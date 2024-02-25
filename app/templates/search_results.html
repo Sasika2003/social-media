@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* CSS Styles */
+        body {
+            background-color: #f0f0f0; /* Light gray background color */
+        }
+        .container {
+    max-width: 800px;
+    margin: 0 auto; /* Center-align the container */
+    padding: 20px;
+    text-align: center; /* Center-align the content */
+    background-color: #f9f9f9; /* Background color for the container */
+    border: 1px solid #ccc; /* Border for the container */
+    border-radius: 5px; /* Rounded corners for the container */
+}
+
+        .user-profile {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin: 0 auto;
+        }
+        .user-profile h1 {
+            margin-bottom: 10px;
+        }
+        .user-profile h2 {
+            margin-bottom: 5px;
+        }
+        .user-profile p {
+            margin-bottom: 10px;
+        }
+        .post {
+            border: 1px solid #ccc; /* Border around each post */
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Search Results</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>&copy; 2024 Connectify App</p>
+    </footer>
+    <div class="container">
+        {% if users_data %}
+            {% for user_data in users_data %}
+                <div class="user-profile">
+                    <h1>User Profile</h1>
+                    <h2>{{ user_data[3] }}</h2> <!-- Display username -->
+                    <p>Email: {{ user_data[1] }}</p> <!-- Display email -->
+                    <p>Phone Number: {{ user_data[4] }}</p> <!-- Display phone number -->
+                    <p>Bio: {{ user_data[5] }}</p> <!-- Display bio -->
+
+                    <h2>Posts</h2>
+                    <div class="post">
+                        {% for post_line in user_data[6].split('\n') %}
+                            <p>{{ post_line }}</p> <!-- Display each line of the post with a new paragraph -->
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No user found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
